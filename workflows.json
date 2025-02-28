@@ -1,0 +1,232 @@
+[
+  {
+    "name": "Welcome Menu",
+    "workflowID": "root-menu",
+    "formatVersion": "0.0.1",
+    "initialState": "MenuDisplayed",
+    "render": [
+      {
+        "stylesID": "",
+        "type": "button",
+        "styles": {
+          "fontType": "Arial",
+          "textColor": "#000000",
+          "backgroundColor": "#ffffff"
+        }
+      }
+    ],
+    "states": [
+      {
+        "stateID": "MenuDisplayed",
+        "displayData": [
+          {
+            "type": "image",
+            "url": "https://cfcc.edu/wp-content/uploads/2019/06/cfcc-logo.png"
+          },
+          {
+            "type": "title",
+            "text": "Welcome to Cape Fear Community College"
+          },
+          {
+            "type": "text",
+            "text": "This is the Cape Fear Community College Credential Management Service.  You will be able to obtain your credentials here.  Currently, we provide support for returning students to request their transcript.  We will notify you as more credentials and services become available to you."
+          },
+          {
+            "type": "button",
+            "actionID": "selectRequestTranscript",
+            "label": "Request Transcript"
+          }
+        ],
+        "transitions": [
+          {
+            "actionID": "selectRequestTranscript",
+            "type": "workflow",
+            "value": "RequestTranscript",
+            "condition": true
+          }
+        ],
+        "actions": [
+          {}
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Request Transcript",
+    "workflowID": "RequestTranscript",
+    "formatVersion": "0.0.1",
+    "initialState": "InitiateRequest",
+    "render": [
+      {
+        "styles": {
+          "textColor": "#000000",
+          "backgroundColor": "#ffffff",
+          "fontType": "Arial"
+        }
+      }
+    ],
+    "states": [
+      {
+        "stateID": "InitiateRequest",
+        "displayData": [
+          {
+            "type": "title",
+            "text": "Request a Transcript"
+          },
+          {
+            "type": "text",
+            "text": "Welcome to the Transcript Request Service. This service is available for:\n\n• Current students requesting an unofficial transcript\n• Former students requesting an official transcript\n\n Click the button below to proceed with your request."
+          },
+          {
+            "type": "button",
+            "actionID": "startRequest",
+            "label": "Proceed Request Transcript"
+          },
+          {
+            "type": "button",
+            "actionID": "goHome",
+            "label": "Go back to home menu"
+          }
+        ],
+        "transitions": [
+          {
+            "actionID": "startRequest",
+            "type": "state",
+            "value": "HasMetadata",
+            "condition": true
+          },
+          {
+            "actionID": "goHome",
+            "type": "workflow",
+            "value": "root-menu",
+            "condition": true
+          }
+        ],
+        "actions": [{}]
+      },
+      {
+        "stateID": "HasMetadata",
+        "displayData": [
+          {
+            "type": "image",
+            "url": "https://assets-v2.lottiefiles.com/a/36038e50-1178-11ee-9eeb-932b0ace7009/h1JosC4pFh.gif"
+          },
+          {
+            "type": "title",
+            "text": ""
+          },
+          {
+            "type": "text",
+            "text": "Searching Student Record ..."
+          },
+          {
+            "type": "agent",
+            "process": "connection",
+            "data": {
+              "actionRequested": "getTranscript"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "actionID": "goHome",
+            "type": "workflow",
+            "value": "root-menu",
+            "condition": true
+          },
+          {
+            "actionID": "metadataNotFound",
+            "type": "state",
+            "value": "MetadataNotFound",
+            "condition": false
+          },
+          {
+            "actionID": "metadataFound",
+            "type": "state",
+            "value": "MetadataFound",
+            "condition": true
+          }
+        ],
+        "actions": [
+          {}
+        ]
+      },
+      {
+        "stateID": "MetadataNotFound",
+        "displayData": [
+          {
+            "type": "title",
+            "text": "Transcript Request Unsuccessful"
+          },
+          {
+            "type": "text",
+            "text": "We apologize, but we were unable to process your transcript request at this time. This could be due to one of the following reasons:\n\n• Your student record may not be in our system yet\n• There might be a temporary technical issue\n• Your information may need to be updated\n\nPlease try again or contact the registrar's office if the problem persists."
+          },
+          {
+            "type": "button",
+            "actionID": "requestAgain",
+            "label": "Request Transcript Again"
+          },
+          {
+            "type": "button",
+            "actionID": "goHome",
+            "label": "Go back to home menu"
+          }
+        ],
+        "transitions": [
+          {
+            "actionID": "requestAgain",
+            "type": "state",
+            "value": "InitiateRequest",
+            "condition": true
+          },
+          {
+            "actionID": "goHome",
+            "type": "workflow",
+            "value": "root-menu",
+            "condition": true
+          }
+        ],
+        "actions": [{}]
+      },
+      {
+        "stateID": "MetadataFound",
+        "displayData": [
+          {
+            "type": "title",
+            "text": "Transcript Request Was Successful"
+          },
+          {
+            "type": "text",
+            "text": "Your transcript request has been processed successfully. Your transcript is now available and showcases your academic achievements at Cape Fear Community College.\n\nIf you need another copy or have any issues accessing your transcript, you can submit a new request by clicking the button below."
+          },
+          {
+            "type": "button",
+            "actionID": "requestAgain",
+            "label": "Request Transcript Again"
+          },
+          {
+            "type": "button",
+            "actionID": "goHome",
+            "label": "Go back to home menu"
+          }
+        ],
+        "transitions": [
+          {
+            "actionID": "requestAgain",
+            "type": "state",
+            "value": "InitiateRequest",
+            "condition": true
+          },
+          {
+            "actionID": "goHome",
+            "type": "workflow",
+            "value": "root-menu",
+            "condition": true
+          }
+        ],
+        "actions": [{}]
+      }
+    ]
+  }
+]

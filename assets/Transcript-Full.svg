@@ -1,0 +1,114 @@
+<svg width="612" height="792" viewBox="0 0 612 792" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css">@import url(http://fonts.googleapis.com/css?family=Open+Sans);</style>
+  </defs>
+  <!-- lower section -->
+  <g id="Transcript" clip-path="url(#clip0_28_33)">
+    <rect width="612" height="792" fill="white"/>
+    <rect id="footer" y="772" width="612" height="20" fill="#6666CC"/>
+
+    <!-- Static column headers -->
+    <rect id="course bar" x="12" y="220" width="588" height="2" rx="1" fill="#424242"/>
+    <text id="Letter Grade" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" font-weight="bold" letter-spacing="0em">
+      <tspan x="553" y="197.879">Letter &#10;</tspan><tspan x="553" y="209.879">Grade</tspan>
+    </text>
+    <text id="Numeric Grade" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" font-weight="bold" letter-spacing="0em">
+      <tspan x="483" y="197.879">Numeric &#10;</tspan><tspan x="483" y="209.879">Grade</tspan>
+    </text>
+    <text id="Earned Credit" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" font-weight="bold" letter-spacing="0em">
+      <tspan x="421" y="197.879">Earned &#10;</tspan><tspan x="421" y="209.879">Credit</tspan>
+    </text>
+    <text id="Academic Period" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" font-weight="bold" letter-spacing="0em">
+      <tspan x="346" y="197.879">Academic &#10;</tspan><tspan x="346" y="209.879">Period</tspan>
+    </text>
+    <text id="Course Code" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" font-weight="bold" letter-spacing="0em">
+      <tspan x="282" y="197.879">Course &#10;</tspan><tspan x="282" y="209.879">Code</tspan>
+    </text>
+    <text id="Course" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" font-weight="bold" letter-spacing="0em">
+      <tspan x="12" y="208.879">Course</tspan>
+    </text>
+
+    <!-- New dynamic sections for each term -->
+    {{#each groupedCourses as |term termIndex|}}
+      {{#ifEquals termIndex 0}}
+        <!-- Static column headers replaced with the first term title -->
+        <rect id="semester divider" x="12" y="236" width="588" height="20" rx="10" fill="#424242" />
+        <text id="term" fill="white" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+          <tspan x="262.119" y="249.879">{{term.term}}</tspan>
+        </text>
+        {{#each term.courses as |course courseIndex|}}
+          <text id="courseTitle" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="12" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.courseTitle}}</tspan>
+          </text>
+          <text id="courseCode" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="282" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.courseCode}}</tspan>
+          </text>
+          <text id="academicPeriod" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="346" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.academicPeriod}}</tspan>
+          </text>
+          <text id="earnedCredits" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="421" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.earnedCredits}}</tspan>
+          </text>
+          <text id="finalNumericGradeEarned" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="483" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.finalNumericGradeEarned}}</tspan>
+          </text>
+          <text id="finalLetterGradeEarned" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="553" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.finalLetterGradeEarned}}</tspan>
+          </text>
+        {{/each}}
+      {{else}}
+        <rect id="semester divider" x="12" y="{{calcYPosition termIndex}}" width="588" height="20" rx="10" fill="#424242" />
+        <text id="term" fill="white" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+          <tspan x="262.119" y="{{calcYPositionText termIndex}}">{{term.term}}</tspan>
+        </text>
+        {{#each term.courses as |course courseIndex|}}
+          <text id="courseTitle" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="12" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.courseTitle}}</tspan>
+          </text>
+          <text id="courseCode" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="282" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.courseCode}}</tspan>
+          </text>
+          <text id="academicPeriod" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="346" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.academicPeriod}}</tspan>
+          </text>
+          <text id="earnedCredits" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="421" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.earnedCredits}}</tspan>
+          </text>
+          <text id="finalNumericGradeEarned" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="483" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.finalNumericGradeEarned}}</tspan>
+          </text>
+          <text id="finalLetterGradeEarned" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="10" letter-spacing="0em">
+            <tspan x="553" y="{{calcCourseYPosition termIndex courseIndex}}">{{course.finalLetterGradeEarned}}</tspan>
+          </text>
+        {{/each}}
+      {{/ifEquals}}
+    {{/each}}
+
+    <!-- upper section -->
+    <text id="Issued: July 4, 2024" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="12" letter-spacing="0em">
+      <!-- TODO: It's only for Demo, we need to change it to show the right day. {{issued}} -->
+      <tspan x="494.191" y="132.655">Issued: July 12, 2024</tspan>
+    </text>
+    <text id="Student ID: 1234567890" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="12" letter-spacing="0em">
+      <tspan x="239.469" y="132.655">Student ID: {{StudentID}}</tspan>
+    </text>
+    <text id="Name: Jane Doe" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="12" letter-spacing="0em">
+      <tspan x="12" y="132.655">Name: {{First}} {{Middle}} {{Last}}</tspan>
+    </text>
+    <rect id="header container" width="612" height="100" fill="#D9D9D9"/>
+    <text id="School Name 123 Main St Toronto, ON N3E3E3 (555) 555-5555" fill="#424242" xml:space="preserve" style="white-space: pre" font-family="Open Sans" font-size="12" letter-spacing="0em">
+      <tspan x="526.16" y="30.6553">School Name&#10;</tspan><tspan x="534.445" y="46.6553">123 Main St&#10;</tspan><tspan x="484.5" y="62.6553">Toronto, ON N3E3E3&#10;</tspan><tspan x="517.266" y="78.6553">(555) 555-5555</tspan>
+    </text>
+    <g id="logo placeholder">
+      <rect id="Rectangle 11" x="12" y="20" width="200" height="60" rx="2" fill="#424242"/>
+      <text id="LOGO" fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="16" letter-spacing="0em">
+        <tspan x="90.0938" y="57.3182">LOGO</tspan>
+      </text>
+    </g>
+  </g>
+  <defs>
+    <clipPath id="clip0_28_33">
+      <rect width="612" height="792" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
