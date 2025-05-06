@@ -5,7 +5,6 @@ import { WorkflowModule } from '../workflow/workflow.module';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { RedisService } from '../services/redis.service';
-import { EllucianController } from 'src/ellucian/ellucian.controller';
 import { AcaPyService } from '../services/acapy.service';
 import { SisModule } from 'src/sis/sis.module';
 

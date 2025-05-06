@@ -469,3 +469,200 @@ export const studentTranscriptGradesResponse = [
         "id": "8be0b676-acca-45a6-aca4-37b0ac1ff631"
     }
 ]
+
+export const sectionResponse = {
+    "titles": [
+        {
+            "type": {
+                "id": "265f850e-368e-47d1-a609-505ffc0a53b6"
+            },
+            "value": "General Psychology"
+        }
+    ],
+    "startOn": "2022-08-22",
+    "endOn": "2022-12-15",
+    "code": "PSY-150-I01",
+    "number": "I01",
+    "academicPeriod": {
+        "id": "89eebfbd-f54c-4516-9630-81ab2fe6cd42"
+    },
+    "reportingAcademicPeriod": {
+        "id": "89eebfbd-f54c-4516-9630-81ab2fe6cd42"
+    },
+    "censusDates": [
+        "2022-08-31"
+    ],
+    "course": {
+        "id": "2a1c9679-40a8-43e4-976c-016ac69f6707"
+    },
+    "courseCategories": [
+        {
+            "id": "d01fe150-c287-4de1-8124-ac32704ce37e"
+        },
+        {
+            "id": "2783b8fb-80f0-406d-88f9-491a9e8ac75f"
+        },
+        {
+            "id": "da3093e2-decc-486e-af8f-71f8b069a60c"
+        },
+        {
+            "id": "4ffc4bf5-e835-49cd-bda3-89030c33ef21"
+        },
+        {
+            "id": "0a74242b-7640-4745-88c3-c6e0e0873747"
+        },
+        {
+            "id": "20a23cd9-ff06-4785-a382-4be9160e5009"
+        },
+        {
+            "id": "c974d771-45e4-4203-9242-4c16760da85f"
+        },
+        {
+            "id": "3b090d92-a16d-4171-9079-9ab522321e8b"
+        }
+    ],
+    "credits": [
+        {
+            "creditCategory": {
+                "creditType": "institution",
+                "detail": {
+                    "id": "55753fa0-e510-4dd8-80cb-83553e92574d"
+                }
+            },
+            "measure": "credit",
+            "minimum": 3.00000
+        }
+    ],
+    "site": {
+        "id": "a4fb0ea4-7820-4c7f-9946-f2c3b27a5dc5"
+    },
+    "academicLevels": [
+        {
+            "id": "ed617e2e-952c-4f85-abb8-da2f980bb94e"
+        }
+    ],
+    "gradeSchemes": [
+        {
+            "id": "5758ca58-74a7-4a55-8a1c-bf49272f523c"
+        }
+    ],
+    "courseLevels": [
+        {
+            "id": "929715fb-2bba-4650-ad69-6af6a640e758"
+        },
+        {
+            "id": "392248a2-5f59-4245-882a-5f7930096460"
+        },
+        {
+            "id": "f1ec40f6-6fbc-4642-9a81-e3631de2bd71"
+        },
+        {
+            "id": "cb0a8750-cf6c-4391-87d2-af8e140e0a9c"
+        }
+    ],
+    "instructionalMethods": [
+        {
+            "id": "51da8ad8-2a21-43e8-bae0-3ada849f1662"
+        }
+    ],
+    "hours": [
+        {
+            "administrativeInstructionalMethod": {
+                "id": "a8ca3f07-fc2f-44b9-8ecc-62fcd75947eb"
+            },
+            "minimum": 3.00,
+            "interval": "week"
+        }
+    ],
+    "status": {
+        "category": "open",
+        "detail": {
+            "id": "9aca9f73-bc13-4a45-a70b-8117d7c84678"
+        }
+    },
+    "duration": {
+        "length": 16,
+        "unit": "weeks"
+    },
+    "maxEnrollment": 25,
+    "waitlist": {
+        "eligible": "notEligible"
+    },
+    "crossListed": "notCrossListed",
+    "owningInstitutionUnits": [
+        {
+            "institutionUnit": {
+                "id": "cf2219c5-c9a6-4455-a4b5-30a367202276"
+            },
+            "ownershipPercentage": 100.00
+        }
+    ],
+    "billing": 3.00000,
+    "chargeAssessmentMethod": {
+        "id": "14e0df71-44ac-4a5c-9648-7b05a4d20cc2"
+    },
+    "alternateIds": [
+        {
+            "title": "Source Key",
+            "value": "131524"
+        }
+    ],
+    "id": "6a29519c-badb-44b6-9bc5-a847475248fd",
+    "xsecDeliveryMethod": "IN",
+    "xsecDeliveryMode": "ASY",
+    "xsecDeliveryNcihFlag": "N",
+    "secFundingAcctgMethod": "M",
+    "secUser2": "0085121",
+    "secCip": "42.0101",
+    "secSchedType": "D",
+    "secMinEnroll": 1,
+    "secLocalGovtCodes": [
+        {
+            "secLocalGovtCodes": "PSY-150"
+        }
+    ]
+}
+
+export const gradeDefinitionResponse = {
+    "scheme": {
+        "id": "5758ca58-74a7-4a55-8a1c-bf49272f523c"
+    },
+    "grade": {
+        "type": "literal",
+        "value": "A"
+    },
+    "credit": "full",
+    "id": "aea34cc4-85e7-4da1-9c5b-b4d2350f7cb0"
+}
+
+export const academicPeriodResponse = {
+    "category": {
+        "type": "term",
+        "parent": {
+            "academicYear": 2022
+        },
+        "preceding": {
+            "id": "c5d411ef-3008-4c69-9935-d8114a8b44a2"
+        }
+    },
+    "startOn": "2022-08-22T04:00:00Z",
+    "endOn": "2022-12-15T05:00:00Z",
+    "registration": "closed",
+    "censusDates": [
+        "2022-08-31",
+        "2022-08-31"
+    ],
+    "code": "2022FA",
+    "title": "Fall Semester 2022",
+    "id": "89eebfbd-f54c-4516-9630-81ab2fe6cd42",
+    "termAddStartDate": "2022-08-22",
+    "termAddEndDate": "2022-08-26",
+    "termDropStartDate": "2022-08-22",
+    "termDropEndDate": "2022-12-15",
+    "termDropGradeReqdDate": "2022-09-01",
+    "termPreregStartDate": "2022-04-11",
+    "termPreregEndDate": "2022-08-20",
+    "termRegEndDate": "2022-08-21",
+    "termRegStartDate": "2022-08-21",
+    "termCensusDates": "2022-08-31ý2022-08-31"
+}
