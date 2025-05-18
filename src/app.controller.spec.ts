@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
+// eslint-disable-next-line prettier/prettier
 import { AppService } from './app.service';
 
 describe('AppController', () => {
