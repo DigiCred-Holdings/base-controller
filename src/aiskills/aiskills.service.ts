@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { lastValueFrom } from 'rxjs';
 import { EnrollmentService } from 'src/enrollment/enrollment.service';
 import { Enrollment } from 'src/enrollment/entities/enrollment.entity';
+import { format } from 'path';
 
 
 @Injectable()
@@ -28,7 +29,10 @@ export class AiSkillsService {
 		const endpointUrl = this.configService.get("SKILLS_ANALYSIS_URL");
 		const proxyUrl = this.configService.get("AUTHENTICATION_PROXY");
 
-		return this.callEndpointViaProxy(endpointUrl, proxyUrl, analysisBody);
+		const endpointResponse = this.callEndpointViaProxy(endpointUrl, proxyUrl, analysisBody);
+		const formattedAnalysis = this.formatAnalysis(endpointResponse);
+		
+		return formattedAnalysis
 	}
 
 	async jobsAnalysis(connectionId: any, skillsResponse: any) {
@@ -86,6 +90,18 @@ export class AiSkillsService {
 		}
 	}
 
+	private formatAnalysis(endpointResponse) {
+		console.log(endpointResponse);
+
+		let finalOutput = {
+			"count": endpointResponse["skills"].length,
+			"highCountSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][0]],
+			"highLevelSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][1]],
+			"uniqueSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][2]]
+		}
+
+		return finalOutput
+	}
 
 	private formatTranscript(enrollment: Enrollment): { coursesList: [string, string][], source: string } {
 		let terms = enrollment?.terms;
