@@ -29,7 +29,7 @@ export class AiSkillsService {
 		const endpointUrl = this.configService.get("SKILLS_ANALYSIS_URL");
 		const proxyUrl = this.configService.get("AUTHENTICATION_PROXY");
 
-		const endpointResponse = this.callEndpointViaProxy(endpointUrl, proxyUrl, analysisBody);
+		const endpointResponse = await this.callEndpointViaProxy(endpointUrl, proxyUrl, analysisBody);
 		const formattedAnalysis = this.formatAnalysis(endpointResponse);
 		
 		return formattedAnalysis
