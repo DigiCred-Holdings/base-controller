@@ -30,9 +30,8 @@ export class AiSkillsService {
 		const proxyUrl = this.configService.get("AUTHENTICATION_PROXY");
 
 		const endpointResponse = await this.callEndpointViaProxy(endpointUrl, proxyUrl, analysisBody);
-		const formattedAnalysis = this.formatAnalysis(endpointResponse);
 		
-		return formattedAnalysis
+		return endpointResponse
 	}
 
 	async jobsAnalysis(connectionId: any, skillsResponse: any) {
@@ -88,19 +87,6 @@ export class AiSkillsService {
 			console.error(e);
 			return null;
 		}
-	}
-
-	private formatAnalysis(endpointResponse) {
-		console.log(endpointResponse);
-
-		let finalOutput = {
-			"count": endpointResponse["skills"].keys().length,
-			"highCountSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][0]],
-			"highLevelSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][1]],
-			"uniqueSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][2]]
-		}
-
-		return finalOutput
 	}
 
 	private formatTranscript(enrollment: Enrollment): { coursesList: [string, string][], source: string } {
