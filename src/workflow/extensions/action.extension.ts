@@ -135,7 +135,11 @@ export class ExtendedAction implements IActionExtension {
                 try {
                   const skillAnalysisResponse = await this.aiSkillsService.skillsAnalysis(connection_id);
                   instance.state_data.skillAnalysis = skillAnalysisResponse ?? null;
-                  instance.state_data.skillAnalysisCount = skillAnalysisResponse["count"];
+                  instance.state_data.skillAnalysisCount = skillAnalysisResponse["count"] ?? "";
+                  instance.state_data.skillAnalysisSkillOne = skillAnalysisResponse["skills_of_interest"][0]["name"] ?? "";
+                  instance.state_data.skillAnalysisSkillOneCourses = skillAnalysisResponse["skills_of_interest"][0]["count"]
+                  instance.state_data.skillAnalysisSkillTwo = skillAnalysisResponse["skills_of_interest"][1]["name"] ?? "";
+                  instance.state_data.skillAnalysisSkillThree = skillAnalysisResponse["skills_of_interest"][2]["name"] ?? "";
                   console.log("AI Skills Response=", skillAnalysisResponse);
 
                 } catch(err) {
