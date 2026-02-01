@@ -94,7 +94,7 @@ export class AiSkillsService {
 		console.log(endpointResponse);
 
 		let finalOutput = {
-			"count": endpointResponse["skills"].length,
+			"count": endpointResponse["skills"].keys().length,
 			"highCountSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][0]],
 			"highLevelSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][1]],
 			"uniqueSkill": endpointResponse["skills"][endpointResponse["skills_of_interest"][2]]
