@@ -23,6 +23,16 @@ FROM base AS builder
 WORKDIR /usr/src/app
 RUN rm -rf node_modules
 COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+# ----- after COPY --from=deps -------------------------------------
+# 1.  install the library’s own dev-dependencies and build
+RUN cd node_modules/@veridid/workflow-parser && \
+    yarn install --production=false && \
+    yarn build
+# 2.  prove the files are now there
+RUN ls -l node_modules/@veridid/workflow-parser/dist
+# ------------------------------------------------------------------
+
 COPY . .
 # Build based on the preferred package manager
 
