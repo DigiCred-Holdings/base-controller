@@ -128,23 +128,46 @@ export class ExtendedAction implements IActionExtension {
                   }
               }
               break;
-            case "analyzeCredential-Transcript":
-              console.log("Performing transcript credential analysis");
+            case "analyzeCredential-Skills":
+              console.log("Performing transcript credential skills analysis");
 
               if (eval(action.condition)) {
-
-                const connectionEnrollment: Enrollment = await this.enrollmentsService.findOne(connection_id);
-                
-                let aiSkillsResponse;
                 try {
-                  aiSkillsResponse = await this.aiSkillsService.getTranscriptAndSendToAI(connectionEnrollment);
+                  const skillAnalysisResponse = await this.aiSkillsService.skillsAnalysis(connection_id);
+                  instance.state_data.skillAnalysis = skillAnalysisResponse;
+                  instance.state_data.skillAnalysisCount = skillAnalysisResponse["count"];
+                  instance.state_data.skillAnalysisSkillOne = skillAnalysisResponse["skills_of_interest"][0]["name"];
+                  instance.state_data.skillAnalysisSkillOneCourses = skillAnalysisResponse["skills_of_interest"][0]["count"];
+                  instance.state_data.skillAnalysisSkillTwo = skillAnalysisResponse["skills_of_interest"][1]["name"];
+                  instance.state_data.skillAnalysisSkillThree = skillAnalysisResponse["skills_of_interest"][2]["name"];
+                  instance.state_data.skillAnalysisLevelOneCount = skillAnalysisResponse["skill_level_counts"][0];
+                  instance.state_data.skillAnalysisLevelTwoCount = skillAnalysisResponse["skill_level_counts"][1];
+                  instance.state_data.skillAnalysisLevelThreeCount = skillAnalysisResponse["skill_level_counts"][2];
+                  instance.state_data.skillAnalysisSkillOnePathways = skillAnalysisResponse["skills_of_interest"][0]["pathways"];
+                  instance.state_data.skillAnalysisSkillTwoPathways = skillAnalysisResponse["skills_of_interest"][1]["pathways"];
+                  instance.state_data.skillAnalysisSkillThreePathways = skillAnalysisResponse["skills_of_interest"][2]["pathways"];
+                  instance.state_data.skillAnalysisSkillOneLevel = skillAnalysisResponse["skills_of_interest"][0]["skill_level_average"];
+                  instance.state_data.skillAnalysisSkillTwoLevel = skillAnalysisResponse["skills_of_interest"][1]["skill_level_average"];
+                  instance.state_data.skillAnalysisSkillThreeLevel = skillAnalysisResponse["skills_of_interest"][2]["skill_level_average"];
+                  instance.state_data.skillAnalysisSummary = skillAnalysisResponse["summary"];
+                  console.log("AI Skills Response=", skillAnalysisResponse);
+
                 } catch(err) {
                   console.error("AISkills response threw an error: ", err);
                 }
-
-                if (aiSkillsResponse) {
-                  console.log("AI Skills response: ", aiSkillsResponse);
-                  instance.state_data.aiSkills = aiSkillsResponse ? aiSkillsResponse : null;
+              }
+              break;
+            case "analyzeCredential-Jobs":
+              console.log("Performing transcript credential job analysis");
+              if (eval(action.condition)) {
+                try {
+                  const skillsAnalysis = instance.state_data.aiSkills;
+                  const jobsAnalysisResponse = await this.aiSkillsService.jobsAnalysis(connection_id, skillsAnalysis);
+                  instance.state_data.aiJobs = jobsAnalysisResponse ?? null;
+                  instance.state_data.aiJobsDisplay = jobsAnalysisResponse.highlight ?? null;
+                  console.log("AI Jobs Response=", jobsAnalysisResponse);
+                } catch(err) {
+                  console.error("AIJobs response threw an error: ", err);
                 }
               }
               break;
