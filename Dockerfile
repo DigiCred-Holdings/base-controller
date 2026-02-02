@@ -34,7 +34,7 @@ RUN echo "=== builder node_modules contents ===" && \
     echo "=== workflow-parser package.json ===" && \
     cat node_modules/@veridid/workflow-parser/package.json 2>/dev/null || echo "package.json missing" && \
     echo "=== workflow-parser dist folder" && \
-    ls -la node_modules/@veridid/workflow-parser/dist 2>/dev/null || echo "workflow-parser dist not found" && \
+    ls -la node_modules/@veridid/workflow-parser 2>/dev/null || echo "workflow-parser dist not found" && \
     echo "=== real yarn.lock hash =============" && \
     sha256sum yarn.lock && \
     echo "=== forcing failure to keep layer ===" && \
