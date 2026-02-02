@@ -9,6 +9,15 @@ FROM base AS deps
 WORKDIR /usr/src/app
 # Install OS dependencies required for node-gyp, etc.
 RUN apk add --no-cache libc6-compat python3 make g++
+
+# --- DEBUG: what yarn.lock did we get? -----------------------------
+COPY package.json yarn.lock* ./
+RUN echo "--- yarn.lock checksum inside deps stage ---" && \
+    sha256sum yarn.lock && \
+    echo "--- package 'my-pkg' present? ---" && \
+    grep -E "veridid" yarn.lock || echo "veridid NOT found"
+# -----------------------------------------------------------------
+
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
@@ -23,6 +32,14 @@ FROM base AS builder
 WORKDIR /usr/src/app
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY . .
+
+# --- DEBUG: double-check after the full COPY ---------------------
+RUN echo "--- final yarn.lock checksum ---" && \
+    sha256sum yarn.lock && \
+    echo "--- node_modules/my-pkg version ---" && \
+    cat node_modules/@veridid/workflow-parser/package.json | jq -r .version || echo "my-pkg not in node_modules"
+# -----------------------------------------------------------------
+
 # Build based on the preferred package manager
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
