@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # 2. Install dependencies
 FROM base AS deps
+WORKDIR /usr/src/app
 # Install OS dependencies required for node-gyp, etc.
 RUN apk add --no-cache libc6-compat python3 make g++
 # Install dependencies based on the preferred package manager
