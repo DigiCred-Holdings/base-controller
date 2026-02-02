@@ -6,7 +6,6 @@ WORKDIR /usr/src/app
 
 # 2. Install dependencies
 FROM base AS deps
-WORKDIR /usr/src/app
 # Install OS dependencies required for node-gyp, etc.
 RUN apk add --no-cache libc6-compat python3 make g++
 # Install dependencies based on the preferred package manager
@@ -21,16 +20,7 @@ RUN \
 # 3. Build the application
 FROM base AS builder
 WORKDIR /usr/src/app
-RUN rm -rf node_modules
 COPY --from=deps /usr/src/app/node_modules ./node_modules
-
-# ----- after COPY --from=deps -------------------------------------
-# 1.  install the library’s own dev-dependencies and build
-RUN cd node_modules/@veridid/workflow-parser && \
-    yarn install --production=false && \
-    yarn build
-# ------------------------------------------------------------------
-
 COPY . .
 # Build based on the preferred package manager
 
