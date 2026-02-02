@@ -23,20 +23,6 @@ WORKDIR /usr/src/app
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY . .
 # Build based on the preferred package manager
-
-# ----------  DEBUG : inspect what really arrived  -----------------
-RUN echo "=== builder node_modules contents ===" && \
-    ls -la node_modules/ | head -20 && \
-    echo "=== @veridid dir exists? ============" && \
-    ls -la node_modules/@veridid 2>/dev/null || echo "@veridid NOT FOUND" && \
-    echo "=== workflow-parser package.json ===" && \
-    cat node_modules/@veridid/workflow-parser/package.json 2>/dev/null || echo "package.json missing" && \
-    echo "=== workflow-parser dist folder" && \
-    ls -la node_modules/@veridid/workflow-parser 2>/dev/null || echo "workflow-parser dist not found" && \
-    echo "=== real yarn.lock hash =============" && \
-    sha256sum yarn.lock
-    # ------------------------------------------------------------------
-
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
