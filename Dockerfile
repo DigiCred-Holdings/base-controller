@@ -29,8 +29,6 @@ COPY --from=deps /usr/src/app/node_modules ./node_modules
 RUN cd node_modules/@veridid/workflow-parser && \
     yarn install --production=false && \
     yarn build
-# 2.  prove the files are now there
-RUN ls -l node_modules/@veridid/workflow-parser/dist
 # ------------------------------------------------------------------
 
 COPY . .
@@ -46,10 +44,8 @@ RUN echo "=== builder node_modules contents ===" && \
     echo "=== workflow-parser dist folder" && \
     ls -la node_modules/@veridid/workflow-parser 2>/dev/null || echo "workflow-parser dist not found" && \
     echo "=== real yarn.lock hash =============" && \
-    sha256sum yarn.lock && \
-    echo "=== forcing failure to keep layer ===" && \
-    exit 1
-# ------------------------------------------------------------------
+    sha256sum yarn.lock
+    # ------------------------------------------------------------------
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
