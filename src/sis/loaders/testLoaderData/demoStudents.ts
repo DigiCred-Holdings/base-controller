@@ -610,5 +610,184 @@ export const demoStudents = [
                 ]
             }
         ]
-    }
+
+    },
+    {
+        "studentNumber": "8123456",
+        "studentFullName": "Abe Frear",
+        "studentBirthDate": "2007-03-14",
+        "studentSex": "Male",
+        "studentPhone": "(302) 576-2100",
+        "studentEmail": "abe.frear@cfcc.net",
+        "studentAddress": "800 N French St, Wilmington, DE 19801",
+        "graduationDate": "2026-05-20",
+        "gradeLevel": "Senior",
+        "schoolName": "Cape Fear Community College",
+        "schoolPhone": "(910) 362-7000",
+        "schoolAddress": "411 N. Front Street, Wilmington, NC 28401",
+        "schoolFax": "(307) 721-4479",
+        "schoolCode": "LHS2025",
+        "gpa": "2.95",
+        "earnedCredits": "24.0",
+        "terms": [
+            {
+                "termYear": "2025",
+                "termSeason": "Fall Semester",
+                "courses": [
+                    {
+                        "courseCode": "ENG 111",
+                        "courseTitle": "Writing and Inquiry",
+                        "grade": "B",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "MAT 152",
+                        "courseTitle": "Statistical Methods I",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "CIS 110",
+                        "courseTitle": "Introduction to Computers",
+                        "grade": "C",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "DBA 110",
+                        "courseTitle": "Database Concepts",
+                        "grade": "B",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "CTS 115",
+                        "courseTitle": "Info Sys Business Concepts",
+                        "grade": "B",
+                        "creditEarned": "1.0"
+                    }
+                ]
+            },
+            {
+                "termYear": "2024",
+                "termSeason": "Spring Semester",
+                "courses": [
+                    {
+                        "courseCode": "BAS 120",
+                        "courseTitle": "Intro to Analytics",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "BAS 121",
+                        "courseTitle": "Data Visualization",
+                        "grade": "C",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "BAS 150",
+                        "courseTitle": "Intro to Analytical Program",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "BAS 221",
+                        "courseTitle": "Intro to Predictive Analytics",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "BAS 240",
+                        "courseTitle": "Data Structures for Analytics",
+                        "grade": "B-",
+                        "creditEarned": "1.0"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "studentNumber": "8654321",
+        "studentFullName": "Florence Nightingale",
+        "studentBirthDate": "2007-03-14",
+        "studentSex": "Female",
+        "studentPhone": "(302) 576-2100",
+        "studentEmail": "flo.night@cfcc.net",
+        "studentAddress": "800 N French St, Wilmington, DE 19801",
+        "graduationDate": "2026-05-20",
+        "gradeLevel": "Senior",
+        "schoolName": "Cape Fear Community College",
+        "schoolPhone": "(910) 362-7000",
+        "schoolAddress": "411 N. Front Street, Wilmington, NC 28401",
+        "schoolFax": "(307) 721-4479",
+        "schoolCode": "LHS2025",
+        "gpa": "2.95",
+        "earnedCredits": "24.0",
+        "terms": [
+            {
+                "termYear": "2025",
+                "termSeason": "Fall Semester",
+                "courses": [
+                    {
+                        "courseCode": "NUR-111",
+                        "courseTitle": " Introduction to Health Concepts",
+                        "grade": "B",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "NUR-113",
+                        "courseTitle": "Family Health Concepts",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "NUR-114",
+                        "courseTitle": " Holistic Health Concepts",
+                        "grade": "C",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "NUR-211",
+                        "courseTitle": "Health Care Concept",
+                        "grade": "B",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "NUR-212",
+                        "courseTitle": "Health System Concepts",
+                        "grade": "B",
+                        "creditEarned": "1.0"
+                    }
+                ]
+            },
+            {
+                "termYear": "2024",
+                "termSeason": "Spring Semester",
+                "courses": [
+                    {
+                        "courseCode": "NUR-213",
+                        "courseTitle": "Complex Health Concepts",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "NUR-214",
+                        "courseTitle": "Nursing Transition Concepts",
+                        "grade": "C",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "NUR-221",
+                        "courseTitle": "LPN to ADN Concepts I",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    },
+                    {
+                        "courseCode": "NUR-223",
+                        "courseTitle": " LPN to ADN Concepts II",
+                        "grade": "C+",
+                        "creditEarned": "1.0"
+                    }
+                ]
+            }
+        ]
+    }    
 ]
