@@ -727,31 +727,31 @@ export const demoStudents = [
                 "termSeason": "Fall Semester",
                 "courses": [
                     {
-                        "courseCode": "NUR-111",
+                        "courseCode": "NUR 111",
                         "courseTitle": " Introduction to Health Concepts",
                         "grade": "B",
                         "creditEarned": "1.0"
                     },
                     {
-                        "courseCode": "NUR-113",
+                        "courseCode": "NUR 113",
                         "courseTitle": "Family Health Concepts",
                         "grade": "C+",
                         "creditEarned": "1.0"
                     },
                     {
-                        "courseCode": "NUR-114",
+                        "courseCode": "NUR 114",
                         "courseTitle": " Holistic Health Concepts",
                         "grade": "C",
                         "creditEarned": "1.0"
                     },
                     {
-                        "courseCode": "NUR-211",
+                        "courseCode": "NUR 211",
                         "courseTitle": "Health Care Concept",
                         "grade": "B",
                         "creditEarned": "1.0"
                     },
                     {
-                        "courseCode": "NUR-212",
+                        "courseCode": "NUR 212",
                         "courseTitle": "Health System Concepts",
                         "grade": "B",
                         "creditEarned": "1.0"
@@ -763,25 +763,25 @@ export const demoStudents = [
                 "termSeason": "Spring Semester",
                 "courses": [
                     {
-                        "courseCode": "NUR-213",
+                        "courseCode": "NUR 213",
                         "courseTitle": "Complex Health Concepts",
                         "grade": "C+",
                         "creditEarned": "1.0"
                     },
                     {
-                        "courseCode": "NUR-214",
+                        "courseCode": "NUR 214",
                         "courseTitle": "Nursing Transition Concepts",
                         "grade": "C",
                         "creditEarned": "1.0"
                     },
                     {
-                        "courseCode": "NUR-221",
+                        "courseCode": "NUR 221",
                         "courseTitle": "LPN to ADN Concepts I",
                         "grade": "C+",
                         "creditEarned": "1.0"
                     },
                     {
-                        "courseCode": "NUR-223",
+                        "courseCode": "NUR 223",
                         "courseTitle": " LPN to ADN Concepts II",
                         "grade": "C+",
                         "creditEarned": "1.0"
