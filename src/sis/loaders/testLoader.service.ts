@@ -107,6 +107,9 @@ export class TestLoaderService extends SisLoaderService {
             throw new Error(`studentNumber can only contain digits: , ${studentNumber}`);
         }
 
+        console.log("Student number = ",studentNumber )
+        console.log("Validation Students = ", validationStudents)
+
         const validationStudentNumbers = validationStudents.map(student => student.studentNumber);
         const demoStudentNumbers = demoStudents.map(student => student.studentNumber);
 
