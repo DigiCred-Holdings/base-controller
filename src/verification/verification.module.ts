@@ -9,9 +9,10 @@ import { WorkflowsService } from 'src/workflow/workflows/workflows.service';
 import { WorkflowModule } from 'src/workflow/workflow.module';
 import { EnrollmentModule } from 'src/enrollment/enrollment.module';
 import { AcaPyService } from 'src/services/acapy.service';
+import { FasterModule } from 'src/faster/faster.module';
 
 @Module({
-  imports: [HttpModule, ConfigModule, WorkflowModule, MetadataModule, EnrollmentModule], // Add MetadataModule here
+  imports: [HttpModule, ConfigModule, WorkflowModule, MetadataModule, EnrollmentModule, FasterModule],
   controllers: [VerificationController],
   providers: [VerificationService, AcaPyService],
 })
