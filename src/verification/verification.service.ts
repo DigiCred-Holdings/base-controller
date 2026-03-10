@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MetadataService } from '../metadata/metadata.service';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -9,18 +9,24 @@ import { EnrollmentService } from 'src/enrollment/enrollment.service';
 import { Enrollment } from 'src/enrollment/entities/enrollment.entity';
 import { CreateEnrollmentDto } from 'src/enrollment/dto/create-enrollment.dto';
 import { AcaPyService } from 'src/services/acapy.service';
+import { FasterPendingService } from 'src/faster/services/faster-pending.service';
+import { FasterExportService } from 'src/faster/services/faster-export.service';
 // import { parse, getWorkflowInstance, updateWorkflowInstanceByID } from '@veridid/workflow-parser';
 
 
 @Injectable()
 export class VerificationService {
+  private readonly logger = new Logger(VerificationService.name);
+
   constructor(
     private readonly httpService: HttpService,
     private readonly acapyService: AcaPyService,
     private readonly configService: ConfigService,
     private readonly metadataService: MetadataService,
     private readonly enrollmentService: EnrollmentService,
-    private readonly workflowService: WorkflowService
+    private readonly workflowService: WorkflowService,
+    private readonly fasterPendingService: FasterPendingService,
+    private readonly fasterExportService: FasterExportService,
   ) { }
 
 /*   // Helper method to send a message
@@ -142,6 +148,9 @@ export class VerificationService {
           // Save the transcript data in the enrollment table
           await this.enrollmentService.create(enrollment);
 
+          // Check for pending FASTER export requests
+          await this.checkPendingFasterExport(enrollment.studentNumber);
+
           // Find the schema_id from the pres_ex_id
           const pres_ex_record = await this.acapyService.getPresentationExchangeRecordById(credentialData?.pres_ex_id);
           console.log("Presentation Exchange Record=", pres_ex_record);
@@ -177,6 +186,27 @@ export class VerificationService {
       };           
       const displayData = await this.workflowService.parser.parse(connectionId, action);
       await this.workflowService.sendWorkflow(connectionId, displayData);
+    }
+  }
+
+  /**
+   * Check if there's a pending FASTER export request for this student.
+   * If found, export the student's transcript as a "batch of 1" and clear the pending entry.
+   */
+  private async checkPendingFasterExport(studentNumber: string): Promise<void> {
+    try {
+      const pendingRequest = await this.fasterPendingService.getPendingRequest(studentNumber);
+      if (pendingRequest) {
+        this.logger.log(`Found pending FASTER request for student ${studentNumber}`);
+        const savedEnrollment = await this.enrollmentService.findByStudentNumber(studentNumber);
+        if (savedEnrollment) {
+          this.fasterExportService.exportBatch([savedEnrollment], pendingRequest.sourceFilename);
+          await this.fasterPendingService.removePendingRequest(studentNumber);
+          this.logger.log(`FASTER export completed for student ${studentNumber}`);
+        }
+      }
+    } catch (fasterError) {
+      this.logger.error(`Error processing pending FASTER request for ${studentNumber}:`, fasterError);
     }
   }
 
