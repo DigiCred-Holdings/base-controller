@@ -5,6 +5,8 @@ import { NhcsLoaderService } from "./nhcsLoader.service";
 import { CsvLoaderService } from "../data-extract/csvLoader.service";
 import { PdfLoaderService } from "../data-extract/pdfLoader.service";
 
+jest.mock('fs');
+const fs = require('fs');
 
 const env = {
 }
@@ -14,10 +16,18 @@ describe('SisController', () => {
     let nhcsLoaderService: NhcsLoaderService;
 
     beforeEach(async () => {
+        // Mock fs.readdirSync to return empty array (no files)
+        fs.readdirSync.mockReturnValue([]);
+
         const module = await Test.createTestingModule({
             providers: [
                 NhcsLoaderService,
-                CsvLoaderService,
+                {
+                    provide: CsvLoaderService,
+                    useValue: {
+                        load: jest.fn().mockResolvedValue(undefined),
+                    }
+                },
                 {
                     provide: RedisService,
                     useValue: {
