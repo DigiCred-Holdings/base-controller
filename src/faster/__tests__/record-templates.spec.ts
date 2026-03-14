@@ -1,14 +1,9 @@
 import {
-  buildS00Record,
   buildS01Record,
   buildS03Record,
   buildS05Record,
   buildErrorRecord,
   buildAllRecords,
-  S00_LENGTH,
-  S01_LENGTH,
-  S03_LENGTH,
-  S05_LENGTH,
   ERR_LENGTH,
 } from '../templates/record-templates';
 import { Enrollment } from 'src/enrollment/entities/enrollment.entity';
@@ -40,39 +35,11 @@ function makeEnrollment(overrides: Partial<Enrollment> = {}): Enrollment {
   return e;
 }
 
-describe('buildS00Record()', () => {
-  it('returns a string of expected total length', () => {
-    const enrollment = makeEnrollment();
-    const result = buildS00Record(enrollment);
-    expect(result.length).toBe(S00_LENGTH);
-  });
-
-  it('starts with record type S00', () => {
-    const result = buildS00Record(makeEnrollment());
-    expect(result.substring(0, 3)).toBe('S00');
-  });
-
-  it('includes student number at correct position', () => {
-    const result = buildS00Record(makeEnrollment({ student_number: '202500789' }));
-    expect(result.substring(3, 13)).toBe('202500789 ');
-  });
-
-  it('handles undefined fields gracefully', () => {
-    const enrollment = makeEnrollment({
-      student_ssn: undefined as any,
-      student_sex: undefined as any,
-    });
-    const result = buildS00Record(enrollment);
-    expect(result.length).toBe(S00_LENGTH);
-    // Should contain spaces where undefined fields are
-    expect(result).not.toContain('undefined');
-  });
-});
 
 describe('buildS01Record()', () => {
   it('returns a string of expected total length', () => {
     const result = buildS01Record(makeEnrollment());
-    expect(result.length).toBe(S01_LENGTH);
+    expect(result.length).toBe(1016);
   });
 
   it('starts with record type S01', () => {
@@ -96,31 +63,25 @@ describe('buildS03Record()', () => {
   };
 
   it('returns a string of expected total length', () => {
-    const result = buildS03Record(makeEnrollment(), term, course);
-    expect(result.length).toBe(S03_LENGTH);
+    const result = buildS03Record(makeEnrollment(), term);
+    expect(result.length).toBe(1020);
   });
 
   it('starts with record type S03', () => {
-    const result = buildS03Record(makeEnrollment(), term, course);
+    const result = buildS03Record(makeEnrollment(), term);
     expect(result.substring(0, 3)).toBe('S03');
   });
 
   it('handles missing course data gracefully', () => {
-    const emptyCourse: FasterCourseData = {
-      courseCode: '',
-      courseTitle: '',
-      creditEarned: '',
-      grade: '',
-    };
-    const result = buildS03Record(makeEnrollment(), term, emptyCourse);
-    expect(result.length).toBe(S03_LENGTH);
+    const result = buildS03Record(makeEnrollment(), term);
+    expect(result.length).toBe(1020);
   });
 });
 
 describe('buildS05Record()', () => {
   it('returns a string of expected total length', () => {
     const result = buildS05Record(makeEnrollment());
-    expect(result.length).toBe(S05_LENGTH);
+    expect(result.length).toBe(1020);
   });
 
   it('starts with record type S05', () => {
@@ -169,20 +130,20 @@ describe('buildAllRecords()', () => {
     ];
     const enrollment = makeEnrollment({ terms: terms as any });
     const lines = buildAllRecords(enrollment);
-    // S00 + S01 + 3 courses (S03) + S05 = 6 lines
-    expect(lines.length).toBe(6);
+    // S01 + 2 terms (each with S03 + courses S04) + S05 = 7 lines (S01 + S03 + S04 + S04 + S03 + S04 + S05)
+    expect(lines.length).toBe(7);
   });
 
-  it('returns S00 + S01 + S05 for enrollment with no courses', () => {
+  it('returns S01 + S05 for enrollment with no courses', () => {
     const enrollment = makeEnrollment({ terms: [] as any });
     const lines = buildAllRecords(enrollment);
-    expect(lines.length).toBe(3);
+    expect(lines.length).toBe(2);
   });
 
   it('handles null terms gracefully', () => {
     const enrollment = makeEnrollment({ terms: null as any });
     const lines = buildAllRecords(enrollment);
-    expect(lines.length).toBe(3);
+    expect(lines.length).toBe(2);
   });
 
   it('each line has consistent length for its record type', () => {
@@ -198,9 +159,9 @@ describe('buildAllRecords()', () => {
     const enrollment = makeEnrollment({ terms: terms as any });
     const lines = buildAllRecords(enrollment);
 
-    expect(lines[0].length).toBe(S00_LENGTH); // S00
-    expect(lines[1].length).toBe(S01_LENGTH); // S01
-    expect(lines[2].length).toBe(S03_LENGTH); // S03
-    expect(lines[3].length).toBe(S05_LENGTH); // S05
+    expect(lines[0].length).toBe(1016); // S01
+    expect(lines[1].length).toBe(1020); // S03
+    expect(lines[2].length).toBe(1020); // S04
+    expect(lines[3].length).toBe(1020); // S05
   });
 });
