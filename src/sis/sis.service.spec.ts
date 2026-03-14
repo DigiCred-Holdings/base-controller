@@ -6,6 +6,9 @@ import { StudentIdDto } from "../dtos/studentId.dto";
 import { TestLoaderService } from "./loaders/testLoader.service";
 import { validate } from "class-validator";
 import { TranscriptDto } from "../dtos/transcript.dto";
+import { HttpService } from "@nestjs/axios";
+import { RedisService } from "src/services/redis.service";
+import { exampleHighSchoolStudent } from "./loaders/testLoaderData/exampleStudents";
 
 const env = {
     'STUDENTID_EXPIRATION': '06/21/21'
@@ -14,10 +17,26 @@ const env = {
 describe('SisController', () => {
 
     let sisService: SisService;
-    let testLoaderService = new TestLoaderService();
-    const testStudentValues = testLoaderService.exampleStudent;
+    let testLoaderService: TestLoaderService;
+    let testStudentValues: any;
 
     beforeEach(async () => {
+        // Mock HttpService and RedisService for TestLoaderService
+        const mockHttpService = {
+            get: jest.fn(),
+            post: jest.fn(),
+            put: jest.fn(),
+        };
+        const mockRedisService = {
+            get: jest.fn().mockResolvedValue(null),
+            set: jest.fn(),
+            del: jest.fn(),
+        };
+
+        // Create TestLoaderService with mocked dependencies
+        testLoaderService = new TestLoaderService(mockHttpService as any, mockRedisService as any);
+        testStudentValues = exampleHighSchoolStudent;
+
         const module = await Test.createTestingModule({
             providers: [
                 SisService,
@@ -49,15 +68,15 @@ describe('SisController', () => {
 
     describe('getStudentId', () => {
 
-        const expectedId = new StudentIdDto();
-        expectedId.studentNumber = testStudentValues.studentNumber;
-        expectedId.studentFullName = testStudentValues.studentFullName;
-        expectedId.schoolName = testStudentValues.schoolName;
-        expectedId.expiration = env.STUDENTID_EXPIRATION;
-
         it('returns a studentid when given a student number', async () => {
+            const expectedId = new StudentIdDto();
+            expectedId.studentNumber = testStudentValues.studentNumber;
+            expectedId.studentFullName = testStudentValues.studentFullName;
+            expectedId.schoolName = testStudentValues.schoolName;
+            expectedId.expiration = env.STUDENTID_EXPIRATION;
+
             const response: StudentIdDto = await sisService.getStudentId(testStudentValues.studentNumber);
-            
+
             expect(response.studentNumber).toEqual(expectedId.studentNumber);
             expect(response.studentFullName).toEqual(expectedId.studentFullName);
             expect(response.schoolName).toEqual(expectedId.schoolName);
@@ -74,10 +93,11 @@ describe('SisController', () => {
     })
 
     describe('getStudentTranscript', () => {
-        const expectedTranscript = new TranscriptDto();
-        expectedTranscript.studentNumber = testStudentValues.studentNumber;
 
         it('returns a transcript when given a student number', async () => {
+            const expectedTranscript = new TranscriptDto();
+            expectedTranscript.studentNumber = testStudentValues.studentNumber;
+
             const response: TranscriptDto = await sisService.getStudentTranscript(testStudentValues.studentNumber);
 
             expect(response.studentNumber).toEqual(expectedTranscript.studentNumber)

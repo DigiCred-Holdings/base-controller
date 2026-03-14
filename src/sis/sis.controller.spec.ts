@@ -2,7 +2,6 @@ import { ConfigService } from "@nestjs/config";
 import { SisLoaderService } from "./loaders/sisLoader.service";
 import { SisController } from "./sis.controller";
 import { SisService } from "./sis.service";
-import { StudentsService } from "./students/students.service";
 import { ModuleMocker } from "jest-mock"
 import { Test } from "@nestjs/testing";
 import { of } from "rxjs";
