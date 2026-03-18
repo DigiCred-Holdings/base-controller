@@ -2,7 +2,6 @@ import { ConfigService } from "@nestjs/config";
 import { SisLoaderService } from "./loaders/sisLoader.service";
 import { SisController } from "./sis.controller";
 import { SisService } from "./sis.service";
-import { StudentsService } from "./students/students.service";
 import { ModuleMocker } from "jest-mock"
 import { Test } from "@nestjs/testing";
 import { of } from "rxjs";
@@ -24,7 +23,10 @@ describe('SisController', () => {
                 {
                     provide: SisService,
                     useValue: {
-                        getStudentId: jest.fn(() => of(testStudentId)),
+                        getStudentId: jest.fn().mockResolvedValue({
+                            studentNumber: testStudentId.studentNumber,
+                            studentFullName: testStudentId.studentName,
+                        }),
                     }
                 }
             ],
@@ -37,12 +39,12 @@ describe('SisController', () => {
         expect(sisController).toBeDefined();
     });
 
-
-
     describe('getStudentId', () => {
         it('should return a studentid when given a number', async () => {
-            sisController.getStudentId('0023').then(response =>
-            expect(response).toEqual(testStudentId));
+            const response = await sisController.getStudentId('0023');
+            expect(response).toBeDefined();
+            expect(response.studentIdCred).toBeDefined();
+            expect(response.studentIdCred.studentNumber).toEqual(testStudentId.studentNumber);
         })
     })
 

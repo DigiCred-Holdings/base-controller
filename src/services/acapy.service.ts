@@ -29,13 +29,14 @@ export class AcaPyService {
         const connectionUrl = `${this.configService.get<string>('API_BASE_URL')}/connections?limit=100&offset=0`;
         const requestConfig: AxiosRequestConfig = this.getRequestConfig();
         try {
-            this.httpService.get(connectionUrl, requestConfig).subscribe((response) => {
-                console.log(response.data); // this will print the data
-            });
-            this.logger.log('Message sent successfully');
+            const response = await lastValueFrom(
+                this.httpService.get(connectionUrl, requestConfig).pipe(map((resp) => resp.data)),
+            );
+            this.logger.log('Connections fetched successfully');
+            return response;
         } catch (error) {
-            this.logger.error('Error sending message:', error.message);
-            throw new Error('Failed to send message');
+            this.logger.error('Error fetching connections:', error.message);
+            throw new Error('Failed to fetch connections');
         }
     }
 

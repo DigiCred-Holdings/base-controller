@@ -46,6 +46,19 @@ export class EnrollmentService {
     return await this.enrollmentRepository.findOneBy({enrollment_id: id });
   }
 
+  async findByStudentNumber(studentNumber: string): Promise<Enrollment | null> {
+    return await this.enrollmentRepository.findOneBy({ student_number: studentNumber });
+  }
+
+  async findRecentByStudentNumbers(studentNumbers: string[], since?: Date): Promise<Enrollment[]> {
+    const qb = this.enrollmentRepository.createQueryBuilder('enrollment')
+      .where('enrollment.student_number IN (:...studentNumbers)', { studentNumbers });
+    if (since) {
+      qb.andWhere('enrollment.created_at >= :since', { since });
+    }
+    return await qb.getMany();
+  }
+
   async update(id: string, updateEnrollmentDto: UpdateEnrollmentDto) {
     return await this.enrollmentRepository.update(id, { enrollment_status: updateEnrollmentDto.enrollment_status });
   }

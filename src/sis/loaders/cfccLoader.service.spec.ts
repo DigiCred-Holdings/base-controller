@@ -82,18 +82,10 @@ describe('CfccLoaderService', () => {
 
     it("should return null when no photo can be retrieved", async () => {
       const mockHttpService = service['httpService'];
-      
+
       jest.spyOn(mockHttpService, 'get').mockImplementation((url: string) => {
-        const mockResponse: AxiosResponse = {
-          data: null,
-          status: 400,
-          statusText: 'Error',
-          headers: {},
-          config: {
-            headers: undefined
-          }
-        };
-        return of(mockResponse);
+        // Return an error observable instead of a response with null data
+        return throwError(() => new Error('Photo not found'));
       })
 
       const base64Photo = await service.getStudentPhoto("0455838");
